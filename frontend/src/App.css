@@ -1,8 +1,7 @@
-.App {
-	text-align: center;
-	font-family: 'Comfortaa', cursive;
-}
-
 nav input {
 	font-family: 'Comfortaa', cursive;
+}
+.landing-input {
+	font-family: 'Comfortaa', cursive;
+	width: 700px;
 }

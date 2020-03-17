@@ -13,11 +13,6 @@ const Navbar = () => (
 					/>
 				</a>
 			</div>
-			<div className='navbar-end'>
-				<div className='navbar-item'>
-					<input className='input' type='text' placeholder='Search for titles' />
-				</div>
-			</div>
 		</nav>
 	</Fragment>
 );
