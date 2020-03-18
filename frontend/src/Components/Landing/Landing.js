@@ -1,13 +1,21 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './Landing.css';
 
 const Landing = () => {
-	const [ searchBar, setSearchBar ] = useState('');
+	const [ searchBar, setSearchBar ] = useState({
+		search: '',
+		movies: []
+	});
 
-	const onClick = (e) => {
-		const btn = document.querySelector('#btn');
-		btn.className = 'button is-primary is-rounded is-loading';
+	const onClick = async (e) => {
+		try {
+			const movies = await axios.get(`/searchMovies/${searchBar}`);
+			console.log(movies.data);
+		} catch (err) {
+			console.log(err.message);
+		}
 	};
 
 	return (
@@ -32,7 +40,7 @@ const Landing = () => {
 									</span>
 								</div>
 								<div className='control'>
-									<Link to='' className='button is-primary is-rounded' id='btn' onClick={onClick}>
+									<Link to='/' className='button is-primary is-rounded' id='btn' onClick={onClick}>
 										Search
 									</Link>
 								</div>
