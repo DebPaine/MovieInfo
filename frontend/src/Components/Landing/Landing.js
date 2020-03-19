@@ -6,13 +6,16 @@ import './Landing.css';
 const Landing = () => {
 	const [ searchBar, setSearchBar ] = useState({
 		search: '',
-		movies: []
+		moviesArray: []
 	});
 
 	const onClick = async (e) => {
 		try {
-			const movies = await axios.get(`/searchMovies/${searchBar}`);
-			console.log(movies.data);
+			const btn = document.querySelector('#btn');
+			btn.classList.toggle('is-active');
+			const movies = await axios.get(`/searchMovies/${searchBar.search}`);
+			setSearchBar({ ...searchBar, moviesArray: movies.data.results });
+			console.log(searchBar);
 		} catch (err) {
 			console.log(err.message);
 		}
@@ -24,6 +27,7 @@ const Landing = () => {
 				<div className='hero-body'>
 					<div className='container'>
 						<div className='herotext'>
+							{searchBar.moviesArray.map((movie, index) => <p key={index}>{movie.title}</p>)}
 							<h1 className='title'>Welcome to MovieInfo</h1>
 							<h2 className='subtitle'>Search for your favorite Movies and TV shows</h2>
 							<div className='field has-addons columns is-centered is-mobile'>
@@ -32,8 +36,10 @@ const Landing = () => {
 										className='input landing-input is-rounded searchbar'
 										type='text'
 										placeholder='Search for titles'
-										onChange={(e) => setSearchBar(e.target.value)}
-										value={searchBar}
+										onChange={(e) =>
+											setSearchBar({ ...searchBar, [e.target.name]: e.target.value })}
+										name='search'
+										value={searchBar.search}
 									/>
 									<span className='icon is-left'>
 										<i className='fas fa-theater-masks' />
